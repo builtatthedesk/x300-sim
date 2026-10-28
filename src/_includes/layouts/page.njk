@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{% if title and page.url != "/" %}{{ title }} · {% endif %}X-300 Script Simulator</title>
+<meta name="description" content="{{ description or 'An unofficial, in-browser simulator and tutorials for ControlByWeb X-300 BASIC scripts.' }}">
+<link rel="stylesheet" href="/assets/site.css">
+<link rel="icon" href="/assets/icon.svg" type="image/svg+xml">
+</head>
+<body class="{{ bodyClass or '' }}">
+<a class="skip" href="#main">Skip to content</a>
+<header class="site">
+  <div class="inner">
+    <a class="brand" href="/">X-300 Script Simulator <span class="tag">unofficial</span></a>
+    <nav aria-label="Main">
+      {% set nav = [["/playground/", "Playground"], ["/learn/", "Learn"], ["/case-study/", "Case study"], ["/reference/", "Reference"], ["/rules/", "Rules &amp; checklist"], ["/about/", "About"]] %}
+      {% for item in nav %}<a href="{{ item[0] }}"{% if page.url.startsWith(item[0]) %} aria-current="page"{% endif %}>{{ item[1] | safe }}</a>{% endfor %}
+    </nav>
+  </div>
+</header>
+<main id="main" class="{{ 'wide' if wide else 'prose' }}">
+{% if title and not hideTitle %}<h1>{{ title }}</h1>{% endif %}
+{{ content | safe }}
+{% if prev or next %}
+<nav class="pager" aria-label="Tutorial pages">
+  {% if prev %}<a href="{{ prev.url }}">&larr; {{ prev.title }}</a>{% else %}<span></span>{% endif %}
+  {% if next %}<a href="{{ next.url }}">{{ next.title }} &rarr;</a>{% endif %}
+</nav>
+{% endif %}
+</main>
+<footer class="site">
+  <div class="inner">
+    <p>Unofficial and independent. Not affiliated with, endorsed by, or supported by ControlByWeb or Xytronix Research &amp; Design. "ControlByWeb" and "X-300" are their trademarks. The simulator approximates the real interpreter: always run the vendor's own checker and test on a unit you can watch before relying on a script.</p>
+    <p><a href="/about/">About &amp; license</a> · <a href="https://github.com/whateverdot/x300-sim">Source on GitHub</a></p>
+  </div>
+</footer>
+</body>
+</html>

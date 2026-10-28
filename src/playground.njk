@@ -1,0 +1,68 @@
+---
+title: Playground
+description: Run an X-300 BASIC script against a simulated room, clock and outside temperature, right in your browser.
+wide: true
+hideTitle: true
+permalink: /playground/
+---
+<div class="pg">
+  <header>
+    <h1>Playground</h1>
+    <p class="small">Pick an example or paste your own script, then move the clock and the temperatures and watch what the relays do. Everything runs in your browser; nothing talks to a real unit.</p>
+  </header>
+
+  <div class="top">
+    <section class="card" aria-label="Control page replica">
+      <h2>Control page (simulated)</h2>
+      <div class="dev"><table id="panel"></table></div>
+      <p class="devfoot" id="devClock"></p>
+    </section>
+
+    <section class="card ctl" aria-label="Simulated world">
+      <h2>World</h2>
+      <div class="row"><label for="tTime">Time of day</label><input type="range" id="tTime" min="0" max="86399" step="60"><output id="oTime"></output></div>
+      <div class="row"><label for="sDate">Date</label><input type="date" id="sDate"><output id="oDow"></output></div>
+      <div class="seg" role="group" aria-label="Clock speed">
+        <button data-speed="0">Pause</button><button data-speed="1">Real time</button><button data-speed="60">1 min/s</button><button data-speed="600">10 min/s</button><button data-speed="3600">1 h/s</button>
+      </div>
+      <div class="row"><label for="tOut">Outside</label><input type="range" id="tOut" min="-10" max="100" step="0.5"><output id="oOut"></output></div>
+      <div class="row"><label for="tIn">Inside</label><input type="range" id="tIn" min="40" max="90" step="0.1"><output id="oIn"></output></div>
+      <div class="checks">
+        <label><input type="checkbox" id="cModel" checked> Room warms when relay 1 is on (rough model)</label>
+        <label><input type="checkbox" id="cFeed"> Outside sender writes extvar<span id="feedVar">4</span> every 10 min</label>
+      </div>
+      <div class="bar">
+        <button class="btn" id="bPower" type="button">Simulate a power cut</button>
+        <label class="small"><input type="checkbox" id="cWipe"> cut also clears external variables</label>
+      </div>
+      <div class="checks" id="summary" aria-live="polite"></div>
+    </section>
+  </div>
+
+  <div class="bottom">
+    <section class="card" aria-label="BASIC script">
+      <h2>Script</h2>
+      <div class="bar">
+        <label for="sExample" class="small">Example</label>
+        <select id="sExample"></select>
+        <button class="btn primary" id="bRun" type="button">Check &amp; run</button>
+        <button class="btn" id="bShare" type="button">Copy share link</button>
+        <span class="small" id="bytes"></span>
+      </div>
+      <textarea id="src" spellcheck="false" aria-label="Script text" autocapitalize="off" autocomplete="off"></textarea>
+      <div class="status" id="status" role="status">State: Stopped</div>
+      <p class="small">Rules as on the unit: one statement per line, spaces between every word and operator, one operation per line, your own variables are <code>a</code> to <code>j</code>, nesting up to 5, 1900 bytes. <a href="/rules/">All the rules</a>.</p>
+    </section>
+
+    <section class="card" aria-label="Variables and history">
+      <h2>Last 24 hours</h2>
+      <canvas class="chart" id="chart" width="600" height="170" aria-label="Inside and outside temperature and relay 1 over the last simulated 24 hours" role="img"></canvas>
+      <div class="legend"><span><i style="background:var(--accent)"></i>inside</span><span><i style="background:var(--mut)"></i>outside</span><span><i style="background:var(--warn)"></i>relay 1 on</span></div>
+      <h2 style="margin-top:16px">Variables</h2>
+      <div class="watch" id="watch"></div>
+      <h2 style="margin-top:16px">Log</h2>
+      <ul class="log" id="log"></ul>
+    </section>
+  </div>
+</div>
+<script type="module" src="/assets/playground.js"></script>
