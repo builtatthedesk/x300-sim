@@ -5,7 +5,7 @@ permalink: /case-study/
 ---
 These four scripts ran, one after another, on an X-300 heating the ground floor of a small residential building. Each change was tested in this simulator before it was uploaded. They're shown here as they ran, apart from the building's name. Each version opens in the playground with sensible starting values.
 
-The building's needs were ordinary: a comfortable day temperature, less at night, less on weekday working hours when nobody was home, no heating on mild afternoons, and none in summer.
+The building's needs were ordinary: a comfortable day temperature, less at night, less during weekday working hours, no heating on mild afternoons, and none in summer.
 
 ## Version 1: a thermostat with a night setback
 
@@ -25,7 +25,7 @@ Two quirks worth noticing: the sensor sanity check (`c > 20`, `c < 150`) is on s
 
 Two additions:
 
-- **Weekday daytime setpoint.** From 08:00 to 16:00, Monday to Friday, the target drops to `extvar1`. The day of the week comes from `(date + 3) % 7`, as in [lesson 4](/learn/weekdays/). Setting `extvar1` below 50 switches the feature off without touching the script (`if extvar1 > 49 then`), which proved useful when someone was working from home.
+- **Weekday daytime setpoint.** From 08:00 to 16:00, Monday to Friday, the target drops to `extvar1`. The day of the week comes from `(date + 3) % 7`, as in [lesson 4](/learn/weekdays/). Setting `extvar1` below 50 switches the feature off without touching the script (`if extvar1 > 49 then`), which is handy for the odd week when the usual schedule doesn't apply.
 - **Anticipation moved to `extvar3` and protected.** The swing (here called anticipation) is clamped: anything below 0.3 or above 5 is treated as 0.3. A slip on the control page (typing 30 instead of 3.0) can't make the heat cycle wildly.
 
 The night window moved to the end of the "pick the target" section, so night always wins over the weekday rule.

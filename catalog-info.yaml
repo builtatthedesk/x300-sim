@@ -4,9 +4,9 @@ metadata:
   name: x300-sim
   description: Public in-browser simulator + tutorial site for ControlByWeb X-300 BASIC scripts (Eleventy, Netlify).
   annotations:
-    whateverdot.com/aliases: x300 simulator, x-300 sim, controlbyweb basic, webrelay script lab, basic simulator, thermostat script tester
-    whateverdot.com/next-step: Built + reviewed privately; waiting on Frank's go to make the GitHub repo public and deploy Netlify to production.
+    whateverdot.com/aliases: x300 simulator, x-300 sim, controlbyweb basic, basic simulator, thermostat script tester
+    whateverdot.com/next-step: Built + reviewed privately; awaiting go-live decision (repo public + Netlify production).
 spec:
   type: website
   lifecycle: experimental
-  owner: frank
+  owner: whateverdot
