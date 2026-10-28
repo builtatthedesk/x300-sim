@@ -35,6 +35,7 @@ There is no `AND` in X-300 BASIC, so "between 07:00 and 19:00" is written as one
 - One statement per line.
 - Spaces around every operator: `time >= 07:00:00`, never `time>=07:00:00`.
 - `IF` ends with `THEN` on the same line, the body starts on the next line, and every `IF` needs an `END IF`.
+- `ELSE`, on a line by itself, starts the part that runs when the condition is false.
 - Text after `'` is a comment.
 
 ## Try it

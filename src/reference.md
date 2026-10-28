@@ -13,19 +13,20 @@ A summary in this site's own words. The official source is Appendix G, "BASIC Sc
 - One statement per line. Blank lines are fine. *(Documented)*
 - Every word, number and operator is separated by spaces: `let a = b + 1`, never `let a=b+1`. *(Documented)*
 - `'` starts a comment, to the end of the line. `REM` at the start of a line does the same. *(Documented)*
-- Statement words (`LET`, `IF`, …) can be any case. *(Documented)* The unit's own variable names (`relay1`, `Relay1`) are also accepted in any case. *(Observed)* Your variables `a`–`j` must be lower case. *(Documented)*
+- Statement words (`LET`, `IF`, …) can be any case. *(Documented)* The manual says variable names are case-sensitive, but real units accept the unit's own names in any case (`relay1`, `Relay1`). *(Observed)* Your variables `a`–`j` must be lower case. *(Documented)*
 - The main program ends with `END`. Subroutines, if any, come after it. *(Documented)*
-- The whole script, counting every character and two bytes per line ending, must fit in 1,900 bytes. A longer script gets cut off, which usually shows up as a "missing end of line" error. *(Documented)*
+- End the file with a blank line after `END` (or after the last `END SUB`). *(Documented)*
+- The whole script must fit in 1,900 bytes. A longer script gets cut off, which usually shows up as a "missing end of line" error. *(Documented)* The manual counts a line ending as one byte; files saved on Windows have two (CR LF), so the simulator counts two per line to be safe. *(Simulator choice)*
 
 ## Statements
 
 | Statement | What it does |
 |---|---|
 | `LET var = value` | Store a value. The right side is one value, or two values with one operator. |
-| `IF value op value THEN` … `ELSE` … `END IF` | Run a block if the condition holds. `THEN` ends the line; `ELSE` is optional; `END IF` is required. |
+| `IF value op value THEN` … `ELSE` … `END IF` | Run a block if the condition holds. `THEN` ends the line (the manual marks it optional, and the simulator warns if it's missing); one `ELSE` at most, on its own line; `END IF` is required. |
 | `DO` … `LOOP` | Repeat forever. |
-| `DO WHILE value op value` … `LOOP` | Repeat while the condition holds. |
-| `FOR var = value TO value` … `NEXT` | Count `var` up by 1 from the first value to the second. *(No `STEP` is documented.)* |
+| `DO WHILE value op value` … `LOOP` | Repeat while the condition holds. With no condition it repeats forever, like `DO`. |
+| `FOR var = value TO value` … `NEXT var` | Count `var` up by 1 from the first value to the second, inclusive. *(No `STEP` is documented.)* |
 | `CALL name` / `SUB name` … `END SUB` | Run a subroutine and come back. Names are case-sensitive, up to 20 characters. |
 | `LOG` | Write a log entry, if logging is turned on in the unit's setup. |
 | `EMAIL` | Send the general email. `EMAIL relay1` / `EMAIL temp1` / `EMAIL input1` send that item's message. |
@@ -58,20 +59,20 @@ Negative numbers are written with no space: `-3`.
 | Name | Read | Write | Notes |
 |---|---|---|---|
 | `a` … `j` | yes | yes | Your ten variables. Numbers with decimals. |
-| `relay1` … `relay3` | 0 or 1 | 0 off, 1 on, 2 pulse, 5 toggle | Pulse length is set per relay on the setup page. |
+| `relay1` … `relay3` | 0 or 1 | 0 off, 1 on, 2 pulse, 5 toggle | A pulse turns the relay on for the pulse time set on the relay setup page, then off. The simulator uses 1 second. |
 | `rmt_relay1` … `rmt_relay3` | no | yes | Controls a relay on another unit, set up on the relay page. Can't be read back. |
 | `temp1` … `temp8` | yes | no | Temperature (or humidity, for a humidity sensor) in the unit's chosen units. |
 | `extvar0` … `extvar4` | yes | yes | External variables: also settable from the control page or over HTTP. |
-| `t0` … `t5` | yes | yes | Timers: count down by 1 every 0.1 s, stop at 0. |
+| `t0` … `t5` | yes | yes | Timers: count down by 1 every 0.1 s, stop at 0. Set them to 0 or a positive whole number. |
 | `time` | yes | no | Seconds since midnight. Compare with `hh:mm:ss`. |
 | `date` | yes | no | Days since 1 January 1970. Compare with `mm/dd/yyyy`. |
 | `ed1` … `ed5`, `et1` … `et5` | yes | yes | Event date (days) and time (seconds) pairs. Adding past midnight to an `et` rolls its `ed` forward a day. |
 
-The manual is inconsistent about how many external variables there are (it mentions four, five and six in different places). The unit's status page lists `extvar0` to `extvar4`, so the simulator provides five.
+The manual isn't consistent about how many external variables there are: different pages show different ranges, one going up to `extvar5`. The unit's status page lists `extvar0` to `extvar4`, so the simulator provides five.
 
 ## Values you can write
 
-- Numbers: `70`, `0.5`, `-3`.
+- Numbers: `70`, `0.5`, `-3`. Write `0.5`, not `.5`.
 - Times: `07:30:00` (seconds since midnight).
 - Dates: `12/25/2026` (days since 1970).
 
@@ -86,7 +87,9 @@ The manual is inconsistent about how many external variables there are (it menti
 | Limit | Value |
 |---|---|
 | Script size | 1,900 bytes, counting line endings as 2 bytes |
-| Nesting of `IF`/`DO`/`FOR` | 5 deep |
+| Nesting of `IF`/`DO`/`FOR` | 5 deep (the simulator warns past 5; see below) |
 | User variables | 10 (`a`–`j`) |
 | Timers | 6 |
 | Subroutine name | 20 characters |
+
+On nesting, the manual says `IF`, `FOR` and `DO` can each be nested five times, without saying whether a mix of them counts together. The simulator counts them together and warns, rather than refusing, past five. Staying within five in total is safe either way.

@@ -111,3 +111,27 @@ canvas.chart{width:100%;height:170px;display:block;background:var(--bg);border:1
 .legend{display:flex;gap:14px;font-size:13px;color:var(--mut);margin-top:6px}
 .legend i{display:inline-block;width:14px;height:3px;vertical-align:middle;margin-right:4px}
 @media (prefers-reduced-motion:reduce){*{scroll-behavior:auto}}
+
+/* review fixes: wrapping nav, editor gutter, touch targets */
+nav[aria-label="Main"]{display:flex;flex-wrap:wrap;gap:6px 14px}
+nav[aria-label="Main"] a{margin-right:0;padding:4px 0}
+.editor{display:flex;border:1px solid var(--line);border-radius:8px;background:var(--bg);overflow:hidden}
+.editor textarea{border:0;border-radius:0;flex:1;min-width:0;white-space:pre;overflow:auto}
+.editor pre{margin:0;padding:10px 6px 10px 8px;font:13px/1.5 var(--mono);color:var(--mut);text-align:right;user-select:none;overflow:hidden;min-width:2.4em;border-right:1px solid var(--line);background:var(--card,transparent);max-height:none}
+.status[title]{cursor:pointer}
+.watch div.wide{grid-column:1/-1}
+.watch small{color:var(--mut)}
+.log li.div{color:var(--fg);font-weight:600}
+@media (max-width:600px){
+  .row{grid-template-columns:5.5em minmax(0,1fr) 4.5em}
+  input[type=range]{width:100%;height:32px}
+  input[type=checkbox]{width:20px;height:20px;vertical-align:middle}
+  .checks label,.bar label{display:flex;gap:8px;align-items:center;min-height:36px}
+  .seg button,.pg .btn{min-height:40px;padding:8px 12px}
+  .dev input[type=button]{min-height:36px;padding:4px 10px}
+  .dev input[type=number]{min-height:34px;font-size:16px}
+  input[type=date]{min-width:0;width:100%;font-size:16px}
+  select{min-height:40px;font-size:16px;max-width:100%}
+  textarea{font-size:16px}
+  .editor pre{font-size:16px}
+}

@@ -46,11 +46,16 @@ permalink: /playground/
         <label for="sExample" class="small">Example</label>
         <select id="sExample"></select>
         <button class="btn primary" id="bRun" type="button">Check &amp; run</button>
-        <button class="btn" id="bShare" type="button">Copy share link</button>
         <span class="small" id="bytes"></span>
       </div>
-      <textarea id="src" spellcheck="false" aria-label="Script text" autocapitalize="off" autocomplete="off"></textarea>
-      <div class="status" id="status" role="status">State: Stopped</div>
+      <div class="editor"><pre id="gutter" aria-hidden="true"></pre><textarea id="src" wrap="off" spellcheck="false" aria-label="Script text (Tab moves to the next control)" autocapitalize="off" autocomplete="off"></textarea></div>
+      <div class="status" id="status" role="status" title="Click to jump to the line">State: Stopped</div>
+      <div class="bar">
+        <button class="btn" id="bDownload" type="button">Download .txt for the unit</button>
+        <button class="btn" id="bCopy" type="button">Copy script</button>
+        <button class="btn" id="bShare" type="button">Share link</button>
+      </div>
+      <p class="small">Your edits are kept in this browser as “My script”, so picking an example won't lose them. External variables apply as you type.</p>
       <p class="small">Rules as on the unit: one statement per line, spaces between every word and operator, one operation per line, your own variables are <code>a</code> to <code>j</code>, nesting up to 5, 1900 bytes. <a href="/rules/">All the rules</a>.</p>
     </section>
 

@@ -9,7 +9,7 @@ Most buildings don't need to be as warm at night. This script uses a lower setpo
 
 ## Pick the target first, then act on it
 
-Instead of two copies of the thermostat logic, the script first decides **which** setpoint applies right now and puts it in `a`. The thermostat part after that is the same as in lesson 2, just using `a` instead of `extvar0`.
+Instead of two copies of the thermostat logic, the script first decides **which** setpoint applies right now and puts it in `a`. The thermostat part after that is the same as in lesson 2, just using `a` instead of `extvar0`. (The sensor sanity check from lesson 2 is left out of this and the later lessons to keep them short. Keep it in a real script.)
 
 ```
 let a = extvar0          ' assume daytime
@@ -25,7 +25,7 @@ The night window crosses midnight, so it's really two windows, "after 22:00" and
 
 ## Why this pattern scales
 
-Every later lesson adds rules by changing how `a` is chosen (or by deciding the heat must stay off), while the bottom of the script stays the same. Keeping "decide" and "act" apart keeps a script readable as it grows, and makes it easy to find the line responsible when the heat does something surprising.
+Lesson 4 adds a rule by changing how `a` is chosen; lessons 6 and 7 add a rule that can force the heat off. Either way the bottom of the script stays the same. Keeping "decide" and "act" apart keeps a script readable as it grows, and makes it easy to find the line responsible when the heat does something surprising.
 
 ## Try it
 

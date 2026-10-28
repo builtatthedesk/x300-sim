@@ -16,7 +16,7 @@ The original. Day setpoint `extvar0`, night setpoint `extvar2` from 22:00 to 03:
 
 The `do while a = 1` loop is a common way to write a loop that never ends (`a` is set to 1 and never changed); a plain `DO` does the same.
 
-Two quirks worth noticing: the sensor sanity check (`c > 20`, `c < 150`) is on separate lines at odd indentation, and `Let Relay1` is written with capitals in one place. Both run fine; the unit treats statement words and its own variable names without regard to case.
+Two quirks worth noticing: the sensor sanity check (`c > 20`, `c < 150`) is on separate lines at odd indentation, and `Let` and `Relay1` are capitalised on a couple of lines. Both run fine; the unit treats statement words and its own variable names without regard to case.
 
 ## Version 2: a weekday temperature
 
@@ -25,7 +25,7 @@ Two quirks worth noticing: the sensor sanity check (`c > 20`, `c < 150`) is on s
 
 Two additions:
 
-- **Weekday daytime setpoint.** From 08:00 to 16:00, Monday to Friday, the target drops to `extvar1`. The day of the week comes from `(date + 3) % 7`, as in [lesson 4](/learn/weekdays/). Setting `extvar1` below 50 switches the feature off without touching the script (`if extvar1 > 49 then`), which is handy for the odd week when the usual schedule doesn't apply.
+- **Weekday daytime setpoint.** From 08:00 to 16:00, Monday to Friday, the target drops to `extvar1`. The day of the week comes from `(date + 3) % 7`, as in [lesson 4](/learn/weekdays/). Setting `extvar1` to 49 or below switches the feature off without touching the script (`if extvar1 > 49 then`), which is handy for the odd week when the usual schedule doesn't apply.
 - **Anticipation moved to `extvar3` and protected.** The swing (here called anticipation) is clamped: anything below 0.3 or above 5 is treated as 0.3. A slip on the control page (typing 30 instead of 3.0) can't make the heat cycle wildly.
 
 The night window moved to the end of the "pick the target" section, so night always wins over the weekday rule.
@@ -51,7 +51,7 @@ The simulator's tests run versions 2 and 3 over the same days and check that the
 Two of the unit's three relays weren't wired to anything, so they became switches on the control page:
 
 - **Relay 2, "Season ON".** From June to September the heat is off, unless this is switched on. The day of the year is worked out as in [lesson 7](/learn/seasons/). In season the switch does nothing.
-- **Relay 3, "Test heat".** Pressing it forces the heat on for at most 30 minutes (`t2 = 18000`) or until the room passes 80°, then the script switches relay 3 back off itself. It's for checking from a distance that the boiler actually fires, without changing any setpoints.
+- **Relay 3, "Test heat".** Pressing it forces the heat on for at most 30 minutes (`t2 = 18000`) or until the room passes 80°, then the script switches relay 3 back off itself. `t3` just remembers that the 30-minute timer has already been started for this press, so it isn't restarted on every pass. It's for checking from a distance that the boiler actually fires, without changing any setpoints.
 
 `e = 2` is a third state, "force on", checked after the season and outside rules so that Test heat beats both.
 

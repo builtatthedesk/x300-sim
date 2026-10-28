@@ -20,7 +20,9 @@ The script decides which threshold to check by looking at the relay itself: whil
 
 `temp1` is the reading from sensor 1, in whatever units the unit is set to (°F here). The script copies it into `c` once per pass so every check in that pass uses the same reading.
 
-Your own variables are the ten single letters `a` to `j`, lower case. That's all there is, so it pays to keep a note of what each letter means.
+Your own variables are the ten single letters `a` to `j`, lower case. That's all there is, so it pays to keep a note of what each letter means. They all start at 0, and go back to 0 whenever the script restarts (after a power cut or saving a setup page).
+
+In a `LET`, `=` stores a value; in an `IF`, `=` compares. `if relay1 = 0 then` asks "is relay 1 off?"
 
 `let b = extvar0 - extvar1` does one subtraction. X-300 scripts do **one operation per line**: `let b = extvar0 - extvar1 - 1` would be an error, so split longer sums across lines.
 

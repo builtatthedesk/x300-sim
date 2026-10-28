@@ -30,6 +30,10 @@ end if
 
 While `t1` is still counting, the reading is fresh and the outside rule applies. Once it reaches 0 with no new value, the script behaves like a plain thermostat again.
 
+## A flag: is heat allowed?
+
+The script uses `e` as a **flag**, a variable that just means yes or no. Each pass starts with `let e = 1` ("heat allowed"). The outside-temperature rule can set it to 0 ("force off"). At the bottom, `if e = 0 then` switches the heat off, and otherwise the usual thermostat runs. Rules set the flag; the bottom obeys it. This is how X-300 scripts get around having no `AND` or `OR`: several `IF`s can each set the same flag, and one `IF` tests it.
+
 ## The alternating last digit
 
 There's one catch: if it's 58° outside for three hours, every push is the same number, so `extvar4 <> f` never sees a change and the timer runs out even though the feed is fine. The fix is on the sending side: alternate the last digit, sending 58.00, then 57.95, then 58.00. The 0.05° makes no practical difference, but every push now looks new. The playground's sender does this.

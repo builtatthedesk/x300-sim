@@ -25,12 +25,16 @@ Where the manual is silent, the simulator has to choose. These are the choices, 
 | Is `%` (remainder) supported? | Yes | Observed: X-300s run scripts that use it |
 | Are `*` and `/` supported? | Runs them, with a warning | Documented for the 400 series only |
 | Are the unit's variable names case-sensitive? | No (`Relay1` = `relay1`) | Observed; the manual says variables are case-sensitive |
-| How fast does the script run? | About 400 statements per simulated 10 s | Unknown; the real unit is much faster, which only matters for very tight timing |
+| How fast does the script run? | At least one full pass through the loop per simulated 10 s; the clock only moves between passes | Unknown; the real unit is much faster, which only matters for very tight timing |
 | What does an unplugged sensor read as? | 0 | Unknown |
 | Do external variables survive a power cut? | Yes, by default (switchable in the playground) | Unknown |
 | What state are relays in after a power cut? | Off | Unknown |
 | Are variables reset when the script restarts? | Yes | Unknown; the safe assumption |
-| Number of external variables | 5 (`extvar0`–`extvar4`) | The manual says 4, 5 and 6 in different places; the unit's status page shows 5 |
+| Number of external variables | 5 (`extvar0`–`extvar4`) | The manual's pages disagree; the unit's status page shows 5 |
+| Do `IF`, `DO` and `FOR` share one nesting limit of 5? | Counted together; warns past 5 | The manual doesn't say |
+| Is `THEN` required? | Warns if missing | The manual marks it optional and one example leaves it out |
+| Does a line ending count as 1 or 2 bytes? | 2 | The manual says 1; files saved on Windows have 2 |
+| Pulse length (`relay1 = 2`) | 1 second | Set on the unit's relay setup page |
 
 If you have an X-300 and can settle any of these, please [open an issue](https://github.com/whateverdot/x300-sim/issues) with what you saw.
 

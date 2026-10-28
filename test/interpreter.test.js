@@ -89,7 +89,6 @@ test("static check: missing spaces around operators", () => {
 });
 
 test("static check: structure errors", () => {
-  rejects("if a > 1\nend if\nend", /THEN/);
   rejects("let a = 1", /no END/);
   rejects("do\nlet a = 1\nend", /never closed/);
   rejects("loop\nend", /LOOP without DO/);
@@ -100,7 +99,8 @@ test("static check: structure errors", () => {
 test("static check: nesting limit", () => {
   const deep = (n) => "let a = 1\n" + "if a = 1 then\n".repeat(n) + "let b = 1\n" + "end if\n".repeat(n) + "end";
   assert.doesNotThrow(() => check(deep(LIMITS.maxNest)));
-  rejects(deep(LIMITS.maxNest + 1), /nesting depth/);
+  assert.equal(check(deep(LIMITS.maxNest)).warnings.length, 0);
+  assert.match(check(deep(LIMITS.maxNest + 1)).warnings[0].message, /nesting depth 6/);
 });
 
 test("static check: size limit counts CR LF line endings", () => {
@@ -154,7 +154,7 @@ test("remote relays can be set but not read; time, date and temps are read-only"
   const n = new Machine();
   n.load("let time = 5\nend");
   n.run();
-  assert.match(n.error, /read-only/);
+  assert.match(n.error, /can't be set/);
 });
 
 test("PRINT is rejected (it only works in the vendor's PC checker)", () => {
@@ -171,4 +171,44 @@ test("EMAIL and LOG forms", () => {
   assert.doesNotThrow(() => check("email\nemail relay1\nlog\nend"));
   rejects("email someone\nend", /EMAIL takes/);
   rejects("log a\nend", /LOG takes nothing/);
+});
+
+test("review fixes: lone keywords, one ELSE, NEXT variable, FOR form, writable targets", () => {
+  rejects("let a = 1\nif a = 1 then\nelse let b = 2\nend if\nend", /by itself/);
+  rejects("if a = 1 then\nelse\nelse\nend if\nend", /one ELSE/);
+  rejects("do\nloop until a\nend", /by itself/);
+  rejects("for a = 1 to 3\nnext b\nend", /does not match/);
+  assert.doesNotThrow(() => check("for a = 1 to 3\nnext a\nend"));
+  rejects("for a 1 to 3\nnext\nend", /FOR needs/);
+  rejects("for a = 1 3\nnext\nend", /FOR needs/);
+  rejects("let temp1 = 5\nend", /can't be set/);
+  rejects("for time = 1 to 3\nnext\nend", /can't be set/);
+  rejects("call toString\nend", /no SUB/);
+  rejects("end\nsub s\nend sub\nsub s\nend sub", /defined twice/);
+  rejects("end foo", /not a statement/);
+});
+
+test("review fixes: IF without THEN warns; bare DO WHILE loops forever", () => {
+  const p = check("let a = 1\nif a = 1\nlet b = 2\nend if\nend");
+  assert.match(p.warnings[0].message, /without THEN/);
+  assert.equal(run("let a = 1\nif a = 1\nlet b = 2\nend if\nend").v.b, 2);
+  const m = run("do while\nlet a = a + 1\nloop\nend", () => {}, 30);
+  assert.ok(m.v.a > 5 && m.state === "Running");
+});
+
+test("review fixes: timers count down at small time steps; pulse turns the relay off", () => {
+  const m = run("let t0 = 10\nend");
+  for (let i = 0; i < 60; i++) m.tick(1 / 60);
+  assert.equal(m.timers[0], 0);
+  const p = run("let relay1 = 2\nend");
+  assert.equal(p.relay[0], 1);
+  p.tick(1.5);
+  assert.equal(p.relay[0], 0);
+});
+
+test("review fixes: runaway recursion stops with an error", () => {
+  const m = new Machine();
+  m.load("call s\nend\nsub s\ncall s\nend sub");
+  m.run();
+  assert.match(m.error, /CALL nested/);
 });

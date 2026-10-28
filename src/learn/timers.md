@@ -36,4 +36,4 @@ Nothing else changes. When the timer is still running, the script simply doesn't
 ## Try it
 
 1. Run at **1 min/s** with the outside at 5°. With a tiny swing (0.2) the room would cycle quickly; the log shows the heat never coming back on within 5 minutes of going off.
-2. Change `3000` to `600` (1 minute) and compare the chart.
+2. Change `3000` to `6000` (10 minutes), press **Check & run**, and watch the off periods on the chart get longer.

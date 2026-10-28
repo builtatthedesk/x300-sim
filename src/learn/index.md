@@ -2,7 +2,7 @@
 title: Learn X-300 scripting
 description: Seven short lessons that build an X-300 heating script from a time schedule up to seasons.
 ---
-Each lesson adds one idea to the last. Every lesson's script is a real file that this site's test suite runs, so what a page says the script does is what the simulator does.
+Each lesson adds one idea. Lessons 1–4 build one script up step by step; lessons 5–7 start again from the plain thermostat so each new idea stands alone, and the [case study](/case-study/) shows them all combined. Every lesson's script is a real file that this site's test suite runs, so what a page says the script does is what the simulator does.
 
 1. [A time schedule](/learn/schedule/): the loop every script lives in, `time`, and turning a relay on and off.
 2. [A thermostat](/learn/thermostat/): reading a sensor, a setpoint and a swing, and why a thermostat needs two thresholds.

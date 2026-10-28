@@ -14,7 +14,7 @@
   <div class="inner">
     <a class="brand" href="/">X-300 Script Simulator <span class="tag">unofficial</span></a>
     <nav aria-label="Main">
-      {% set nav = [["/playground/", "Playground"], ["/learn/", "Learn"], ["/case-study/", "Case study"], ["/reference/", "Reference"], ["/rules/", "Rules &amp; checklist"], ["/about/", "About"]] %}
+      {% set nav = [["/playground/", "Playground"], ["/learn/", "Learn"], ["/case-study/", "Case study"], ["/your-script/", "Your script"], ["/reference/", "Reference"], ["/rules/", "Rules &amp; checklist"], ["/about/", "About"]] %}
       {% for item in nav %}<a href="{{ item[0] }}"{% if page.url.startsWith(item[0]) %} aria-current="page"{% endif %}>{{ item[1] | safe }}</a>{% endfor %}
     </nav>
   </div>

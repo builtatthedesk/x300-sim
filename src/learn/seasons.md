@@ -18,6 +18,8 @@ Months have different lengths and leap years add a day, so "is it between June a
 
 After that, 31 May is day 150 and 1 October is day 273, in every year. Summer is "day 151 to 272". (The four-year rule is right for every year from 2000 to 2099, which covers any X-300 still running.)
 
+The script uses the same `e` flag as [lesson 6](/learn/outside-feed/): summer sets it to 0 unless the override is on.
+
 ## A control-page switch as an input
 
 The X-300 has three relays. If one isn't wired to anything, you can still show it on the control page and use its ON/OFF buttons as a **switch** that the script reads: `relay2 = 0` means "automatic", `relay2 = 1` means "allow heat anyway". Nothing clicks in the field because nothing is connected, but the state is there for the script to read. Give it a clear name on the unit's relay setup page.
