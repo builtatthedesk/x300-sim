@@ -1,0 +1,16 @@
+{
+  "name": "x300-sim",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Unofficial simulator and tutorials for ControlByWeb X-300 BASIC scripts.",
+  "license": "MIT",
+  "scripts": {
+    "test": "node --test \"test/*.test.js\"",
+    "build": "eleventy && node tools/check-links.mjs",
+    "dev": "eleventy --serve --port=8090"
+  },
+  "devDependencies": {
+    "@11ty/eleventy": "^3.0.0"
+  }
+}
