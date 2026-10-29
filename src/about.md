@@ -36,11 +36,11 @@ Where the manual is silent, the simulator has to choose. These are the choices, 
 | Does a line ending count as 1 or 2 bytes? | 2 | The manual says 1; files saved on Windows have 2 |
 | Pulse length (`relay1 = 2`) | 1 second | Set on the unit's relay setup page |
 
-If you have an X-300 and can settle any of these, please [open an issue](https://github.com/whateverdot/x300-sim/issues) with what you saw.
+If you have an X-300 and can settle any of these, please [open an issue](https://github.com/builtatthedesk/x300-sim/issues) with what you saw.
 
 ## License
 
-The simulator code, the lessons and the example scripts are released under the MIT License. Copy them, change them, use them on your own units. The [source is on GitHub](https://github.com/whateverdot/x300-sim).
+The simulator code, the lessons and the example scripts are released under the MIT License. Copy them, change them, use them on your own units. The [source is on GitHub](https://github.com/builtatthedesk/x300-sim).
 
 {% if site.sponsors %}If it saved you a site visit or a cold morning, you can [support it on GitHub Sponsors]({{ site.sponsorsUrl }}).
 

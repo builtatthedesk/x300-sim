@@ -13,7 +13,7 @@ Log in to the unit's setup pages and open the **Script** tab. Copy the whole scr
 
 Open the [playground](/playground/) and paste your script over the example. It's kept in your browser as **My script**, so trying an example won't lose it. Press **Check & run**.
 
-If it reports an error on a script that runs fine on the unit, the simulator is wrong, not your script. Please [report it](https://github.com/whateverdot/x300-sim/issues) with the line it complained about.
+If it reports an error on a script that runs fine on the unit, the simulator is wrong, not your script. Please [report it](https://github.com/builtatthedesk/x300-sim/issues) with the line it complained about.
 
 ## 3. Set up the world your script expects
 

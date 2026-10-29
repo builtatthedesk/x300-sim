@@ -13,7 +13,7 @@
   "devDependencies": {
     "@11ty/eleventy": "^3.0.0"
   },
-  "author": "whateverdot",
-  "repository": "github:whateverdot/x300-sim",
+  "author": "builtatthedesk",
+  "repository": "github:builtatthedesk/x300-sim",
   "homepage": "https://x300-sim.netlify.app"
 }
