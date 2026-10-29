@@ -42,4 +42,6 @@ If you have an X-300 and can settle any of these, please [open an issue](https:/
 
 The simulator code, the lessons and the example scripts are released under the MIT License. Copy them, change them, use them on your own units. The [source is on GitHub](https://github.com/whateverdot/x300-sim).
 
-No warranty: a heating script controls real equipment. Test carefully and keep a way to roll back.
+{% if site.sponsors %}If it saved you a site visit or a cold morning, you can [support it on GitHub Sponsors]({{ site.sponsorsUrl }}).
+
+{% endif %}No warranty: a heating script controls real equipment. Test carefully and keep a way to roll back.
