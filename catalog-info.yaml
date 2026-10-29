@@ -5,7 +5,7 @@ metadata:
   description: Public in-browser simulator + tutorial site for ControlByWeb X-300 BASIC scripts (Eleventy, Netlify).
   annotations:
     whateverdot.com/aliases: x300 simulator, x-300 sim, controlbyweb basic, basic simulator, thermostat script tester
-    whateverdot.com/next-step: Reviewed + fixed; on go-live, make the GitHub repo public and run a production Netlify deploy.
+    whateverdot.com/next-step: Repo PUBLIC (2026-10-29); next = Netlify production deploy, then enable tip jar after Frank finishes GitHub Sponsors (todo 1896475547500807258).
     whateverdot.com/dashboards: |-
       X-300 simulator (review draft) | https://review--x300-sim.netlify.app | Netlify draft; production x300-sim.netlify.app not deployed yet
 spec:
